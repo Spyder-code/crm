@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    //
+    protected $fillable = ['nama','alamat','email','logo','banner','phone'];
 }

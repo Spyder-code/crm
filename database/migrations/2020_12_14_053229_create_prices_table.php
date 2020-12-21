@@ -15,7 +15,7 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_produk')->constrained('products')->onUpdateCascade()->onDeleteCascade();
+            $table->foreignId('id_produk')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('harga');
             $table->string('area');
             $table->timestamps();

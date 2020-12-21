@@ -15,8 +15,8 @@ class CreateReferalsTable extends Migration
     {
         Schema::create('referals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('member_id')->constrained('users')->onDeleteCascade()->onUpdateCascade();
-            $table->foreignId('referal_id')->constrained('users')->onDeleteCascade()->onUpdateCascade();
+            $table->foreignId('member_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('referal_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('status');
             $table->timestamps();
         });

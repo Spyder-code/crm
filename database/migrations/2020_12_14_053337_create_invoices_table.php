@@ -15,10 +15,12 @@ class CreateInvoicesTable extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pembeli')->constrained('customers')->onUpdateCascade()->onDeleteCascade();
-            $table->foreignId('id_harga')->constrained('prices')->onUpdateCascade()->onDeleteCascade();
-            $table->foreignId('id_member')->constrained('users')->onUpdateCascade()->onDeleteCascade();
+            $table->foreignId('id_pembeli')->constrained('customers')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('id_member')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('id_produk')->constrained('products')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('id_harga')->constrained('prices')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('jumlah');
+            $table->string('kode');
             $table->string('ongkir');
             $table->string('total');
             $table->integer('status');
