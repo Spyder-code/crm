@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Muhammad Aziz Almi',
             'panggilan' => 'Almi',
+            'sapaan' => 'Mas',
             'jenis_kelamin' => 'LK',
             'tanggal_lahir' => '1999-05-13',
             'kode' => 'AL1301',
@@ -27,9 +28,12 @@ class UserSeeder extends Seeder
             'alamat' => 'mojokerto',
             'status' => 0,
             'komisi' => 0,
+            'pendapatan' => 0,
         ]);
         User::create([
             'name' => 'Luaysyauqillah',
+            'sapaan' => 'Mas',
+            'pendapatan' => 0,
             'panggilan' => 'Luay',
             'jenis_kelamin' => 'LK',
             'tanggal_lahir' => '1999-05-13',

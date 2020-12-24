@@ -22,15 +22,25 @@
                     <input type="hidden" id="2" name="kota">
                     <input type="hidden" id="3" name="kecamatan">
                     <input type="hidden" id="4" name="kelurahan">
-                    <div class="form-group row">
-                        <div class="col">
-                            <label>Nama Lengkap</label>
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
                             <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}">
                             @error('nama')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Sapaan</label>
+                            <select name="sapaan" class="form-control">
+                                <option value="Pak">Pak</option>
+                                <option value="Bu">Bu</option>
+                                <option value="Mas">Mas</option>
+                                <option value="Mbak">Mbak</option>
+                                <option selected value="Kak">Kak</option>
+                            </select>
                         </div>
                         <div class="col">
                             <label>Nama Panggilan</label>

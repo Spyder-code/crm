@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('kode');
             $table->string('name');
+            $table->string('sapaan');
             $table->string('panggilan');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -27,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('jenis_kelamin');
             $table->date('tanggal_lahir');
             $table->integer('komisi');
+            $table->bigInteger('pendapatan');
             $table->integer('status');
             $table->string('role');
             $table->rememberToken();

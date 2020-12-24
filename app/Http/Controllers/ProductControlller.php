@@ -69,28 +69,50 @@ class ProductControlller extends Controller
         $client = new Client();
         $response = $client->request('GET',$url);
 
-        $json=[
-            "token"=>"cd26aa51eacf67df3ea08030a72f0fcb",
-            "source"=>6283857317946,
-            "destination"=>$request->phone,
-            "type"=>"text",
-            "body"=>[
-                "text"=>"Terima kasih telah melakukan transaksi.
-                Untuk proses selanjutnya silahkan melakukan pembayaran dengan pilih opsi dibawah ini:
+        $my_apikey = "OB705427TS8X23S05W05";
+        $destination = $pembeli->phone;
+        $message =
+"Hai ".$pembeli->sapaan." ".$pembeli->panggilan.".
 
-                1. TF BCA      : 7656756756 a.n spydercode
-                2. TF GoPay  : 7878676767 a.n spydercode
-                3. Pembayaran langsung pada alamat di bawah
+Pasti udah ga sabar nunggu barangnya datang kan?
 
-                Salam kami!
-                jl. kh usman mojokerto 61328
+Segera lakukan pembayaran supaya kami bisa segera memproses pesanan Anda
 
-                ".url('/invoice/'.$kode.'.'.$invoice->id)
-            ]
-        ];
-        $client = new Client();
-        $response = $client->request('POST','http://waping.es/api/send',
-        ['headers'=>['Content-Type'=>'application/json'],'json'=>$json]);
+Cara bayar di ATM/internet banking Bank BRI:
+    - klik menu transaksi lain
+    - pilih transfer
+    - BRI
+    - Kode bank BRI (002)
+    - masukkan nomor rekening tujuan : 370801021829539
+    - masukkan nominal pembayaran sesuai tagihan
+    - pastikan nama pembayaran : KHABIB ABDULLOH
+    - lanjutkan sampai selesai
+
+Cara bayar di ATM lain (selain bank BRI)
+    - klik menu tranfer ke bank BRI (002)
+    - masukkan nomor rekening 370801021829539
+    - masukkan nominal pembayaran sesuai tagihan
+    - pastikan nama pembayaran : KHABIB ABDULLOH
+    - lanjutkan sampai selesai
+
+Kirim bukti pembayaran kepada admin, dan mohon simpan bukti pembayaran.
+
+Cek status pembayaran Anda pada link berikut
+".url('/invoice/'.$kode.'.'.$invoice->id)."
+
+setelah Anda melakukan pembayaran, pastikan status berubah menjadi 'paid' pada pojok kanan atas.
+
+Jika status belum berubah dalam 1x24 jam, maka segera laporkan ke WA
+Official garasiart
+
+Salam
+
+Team garasiart";
+        $api_url = "http://panel.rapiwha.com/send_message.php";
+        $api_url .= "?apikey=". urlencode ($my_apikey);
+        $api_url .= "&number=". urlencode ($destination);
+        $api_url .= "&text=". urlencode ($message);
+        $my_result_object = json_decode(file_get_contents($api_url, false));
 
         Invoice::find($invoice->id)->update([
             'kode' => $kode

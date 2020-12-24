@@ -127,6 +127,32 @@ class InvoiceController extends Controller
             array_push($memberTarget,$total);
         }
 
+        $my_apikey = "OB705427TS8X23S05W05";
+        $destination = $invoice->pembeli->phone;
+        $message =
+"Yey..!
+Pesanan ".$invoice->pembeli->sapaan." ".$invoice->pembeli->panggilan." sudah dibayar.
+
+Pesanan akan kami proses dan secepatnya akan kami kirim
+Tunggu barangnya sampai ya ".$invoice->pembeli->sapaan."
+
+Cek status pembayaran pada link berikut:
+".url('invoice/'.$invoice->kode.'.'.$invoice->id)."
+
+Terimakasih atas kepercayaannya pada
+*Garasiart*
+
+Semoga bahagia selalu ".$invoice->pembeli->sapaan." ".$invoice->pembeli->panggilan."
+
+Salam
+
+Team garasiart";
+        $api_url = "http://panel.rapiwha.com/send_message.php";
+        $api_url .= "?apikey=". urlencode ($my_apikey);
+        $api_url .= "&number=". urlencode ($destination);
+        $api_url .= "&text=". urlencode ($message);
+        $my_result_object = json_decode(file_get_contents($api_url, false));
+
         return back()->with('success','Status pembayaran berhasil diubah!');
     }
 
