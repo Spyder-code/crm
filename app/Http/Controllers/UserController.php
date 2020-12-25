@@ -53,7 +53,7 @@ class UserController extends Controller
         $request->validate([
             'nama' => 'required',
             'panggilan' => 'required',
-            'desa' => 'required',
+            'desa' => 'required|max:38',
             'phone' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required',
@@ -76,7 +76,7 @@ class UserController extends Controller
         $kota = $request->kota;
         $kecamatan = $request->kecamatan;
         $kelurahan = $request->kelurahan;
-        $desa = $request->desa;
+        $desa = ucfirst($request->desa);
         $alamat = $desa.' kelurahan '. $kelurahan.' kecamatan '.$kecamatan.' '.$kota.' provinsi '.$provinsi;
 
             $inisial = substr($request->panggilan,0,2);
@@ -84,10 +84,11 @@ class UserController extends Controller
             $tgl = date('d',strtotime($request->tanggal_lahir));
 
             $data = new User;
-            $data->name = $request->nama;
+            $data->name = ucwords($request->nama);
             $data->sapaan = $request->sapaan;
-            $data->panggilan = $request->panggilan;
-            $data->alamat = $alamat;
+            $data->panggilan = ucfirst($request->panggilan);
+            $data->alamat = $desa;
+            $data->alamat_lengkap = $alamat;
             $data->phone = $phone;
             $data->jenis_kelamin = $request->jenis_kelamin;
             $data->tanggal_lahir = $request->tanggal_lahir;

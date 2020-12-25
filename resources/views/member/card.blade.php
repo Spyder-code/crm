@@ -14,52 +14,55 @@
 </head>
 
 <style>
-    .img-profile{
-    position: absolute;
-    top: 200px;
-    margin-left: 100px;
-}
-td{
-    font-size: 20pt;
-}
-h1{
-    margin-left: 300px;
-    font-size: 50pt;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: lightskyblue;
-}
-.img{
-    height: 200px;
-    margin-left: 100px;
-    margin-top: 50px;
-}
-.banner{
+/* .banner{
     height: 300px;
     background-image:url('https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/amazon-rivet-furniture-1533048038.jpg?crop=1.00xw:0.502xh;0,0.423xh&resize=1200:*');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center
+} */
+#isi{
+    position: absolute;
+    top: 10px;
+}
 
+td{
+    font-size: 30pt;
+    color: black;
+    text-shadow: 2px 2px gray;
+    margin-left: 10px;
+}
+
+#bar{
+    position: absolute;
+    top: 380px
+}
+
+#qr{
+    width: 250px;
+    height: 200px;
+}
+#br{
+    margin-top: 150px;
+    top: 30px;
+
+}
+#brr{
+    position: absolute;
+    margin-top: 490px;
+    top: 30px;
 }
 </style>
 
 <body>
-    @php( $perusahaan = \App\Company::first())
-
-    <div class="bg-info banner">
-	</div>
-	<div class="img-profile">
-		<img src="{{ $user->image }}" class="rounded-circle border border-primary" style="width:196px; height:196px">
-	</div>
-
-	<div class="container">
+    <img src="{{ asset('card/depan.jpg') }}" class="img-fluid" width="100%;" style="height: 630px;">
+	<div class="container-fluid" id="isi">
 		<div class="row">
-			<div class="col-8 mt-2 p-3">
-				<h1>{{ $perusahaan->nama }}</h1>
+			<div class="col-8 mt-2 px-4">
 				<table  border="0" cellspacing="0" cellpadding="0">
 					<tbody>
 						<tr>
-							<td width="40%">ID</td>
+							<td width="40%">ID Member</td>
 							<td width="5%">:</td>
 							<td> {{ $user->kode }}</td>
 						</tr>
@@ -73,18 +76,25 @@ h1{
 							<td width="5%">:</td>
 							<td> {{ $user->alamat }}</td>
 						</tr>
-						<tr>
-							<td width="40%">No. Telp</td>
-							<td width="5%">:</td>
-							<td> {{ $user->phone }}</td>
-						</tr>
 					</tbody>
-				</table>
+                </table>
+                <div class="bg-white p-2 text-center" id="brr">
+                    <img class="img img-fluid" src="data:image/png;base64,{{DNS1D::getBarcodePNG($user->kode, 'C128')}}" alt="barcode" style="height: 50px" />
+                </div>
 			</div>
-			<div class="col">
-				<div>
-					<img class="img img-fluid" src="data:image/png;base64,{{DNS2D::getBarcodePNG(url('/register/'.$user->kode), 'QRCODE')}}" alt="barcode" />
-				</div>
+			<div class="col mr-3">
+                <div class="row" id="bar">
+                    {{-- <div class="col">
+                        <div class="bg-white p-2" id="br">
+                            <img class="img img-fluid mr-5" src="data:image/png;base64,{{DNS1D::getBarcodePNG($user->kode, 'C128')}}" alt="barcode" style="height: 50px" />
+                        </div>
+                    </div> --}}
+                    <div class="col" style="margin-left:130px">
+                        <div class="bg-white p-2">
+                            <img class="img img-fluid" id="qr" src="data:image/png;base64,{{DNS2D::getBarcodePNG(url('/register/'.$user->kode), 'QRCODE')}}" alt="barcode" />
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
     </div>

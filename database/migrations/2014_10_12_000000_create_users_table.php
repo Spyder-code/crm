@@ -24,7 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('image');
             $table->string('phone');
-            $table->text('alamat');
+            $table->string('alamat');
+            $table->text('alamat_lengkap');
             $table->string('jenis_kelamin');
             $table->date('tanggal_lahir');
             $table->integer('komisi');
