@@ -32,7 +32,7 @@
                         <div class="d-inline-flex align-items-center">
                             <h2 class="text-dark mb-1 font-weight-medium">{{ $referal }}</h2>
                         </div>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Referal Saya</h6>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Referral Saya</h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
                         <span class="opacity-7 text-muted"><i data-feather="users"></i></span>
@@ -44,8 +44,9 @@
             <div class="card-body">
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
-                        <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium">{{ $transaksi }}</h2>
-                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Transaksi Saya
+                        <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
+                            class="set-doller">Rp.</sup>{{ number_format(Auth::user()->pendapatan,2,',','.') }} </span></h2>
+                        <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Pendapatan Saya
                         </h6>
                     </div>
                     <div class="ml-auto mt-md-3 mt-lg-0">
@@ -116,9 +117,6 @@
                                     <td class="d-flex">
                                         <a href="{{ Auth::user()->role=='admin'?route('invoice.show',['invoice'=>$item->id]):route('member.transaksi.detail',['invoice'=>$item->id]) }}" class="btn btn-warning mr-2" data-toggle="tooltip" data-placement="bottom" title="Detail Transaksi"><i class="text-white fas fa-search"></i></a>
                                         <a href="{{ url('invoice/'.$item->kode.'.'.$item->id) }}" target="d_blank" class="btn btn-info mr-2" data-toggle="tooltip" data-placement="bottom" title="Lihat Invoice"><i class="text-white fas fa-eye"></i></a>
-                                        @if ($item->status==0)
-                                        <a href="https://api.whatsapp.com/send?phone=6283857317946&text=Transaksi%20ini%20segera%20diproses!%0A%0A{{ url('/invoice/'.$item->kode.'.'.$item->id) }}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Chat admin" class="btn btn-success mr-2"><i class="text-white fas fa-envelope"></i></a>
-                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

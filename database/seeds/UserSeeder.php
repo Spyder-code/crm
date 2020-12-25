@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'phone' => '098789927',
             'alamat' => 'mojokerto',
             'status' => 0,
-            'komisi' => 0,
+            'komisi' => 10,
             'pendapatan' => 0,
         ]);
         User::create([
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             'phone' => '098789927',
             'alamat' => 'mojokerto',
             'status' => 0,
-            'komisi' => 0,
+            'komisi' => 10,
         ]);
     }
 }

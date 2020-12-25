@@ -94,8 +94,18 @@
         $('#jumlah').change(function (e) {
             var val = $(this).val();
             var harga = $('#harga').val();
-            var total = val * harga;
-            $('#total').val(total);
+            var str = harga.replace('.','');
+            var total = val * str;
+            var	number_string = total.toString(),
+            sisa 	= number_string.length % 3,
+            rupiah 	= number_string.substr(0, sisa),
+            ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                
+            if (ribuan) {
+                separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            $('#total').val(rupiah);
         });
         $('.uang').mask('000.000.000.000.000', {reverse: true});
     </script>

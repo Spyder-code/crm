@@ -151,6 +151,7 @@
         var id_produk = $('#id_produk').val();
         $('#result').hide();
         $('#harga').change(function (e) {
+            console.log('ss');
             var val = $(this).val();
             $('#link').val(url+'.'+id_produk+'/'+val+'/'+ref);
             $('#result').show();

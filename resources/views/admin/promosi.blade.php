@@ -29,7 +29,13 @@
                                         <label for="">:</label>
                                     </div>
                                     <div class="col">
+                                        @if ($memberTarget[$loop->index]==$item->jumlah)
+                                            <div class="badge badge-success">Complete</div>
+                                        @elseif ($memberTarget[$loop->index]>=$item->jumlah)
+                                            <div class="badge badge-success">Complete</div>
+                                        @else
                                         {{ $memberTarget[$loop->index] }}/{{ $item->jumlah }}
+                                        @endif
                                     </div>
                                 </div>
                             </li>

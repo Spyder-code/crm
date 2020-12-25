@@ -7,6 +7,7 @@ use App\MemberTarget;
 use App\Referal;
 use App\Target;
 use App\User;
+use App\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -152,5 +153,18 @@ class MemberController extends Controller
             'password' => Hash::make('member123')
         ]);
         return back()->with('success','Reset Password berhasil!');
+    }
+
+    public function resetPendapatan(Request $request, User $member)
+    {
+        User::find($member->id)->update([
+            'pendapatan' => 0
+        ]);
+
+        Withdraw::create([
+            'id_member' => $member->id,
+            'jumlah' => $request->pendapatan
+        ]);
+        return redirect()->route('withdraw.index')->with('success','Pendapatan member '.$member->nama.' berhasil diambil!');
     }
 }

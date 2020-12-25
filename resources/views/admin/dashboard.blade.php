@@ -45,7 +45,7 @@
                 <div class="d-flex d-lg-flex d-md-block align-items-center">
                     <div>
                         <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
-                                class="set-doller">Rp.</sup><span class="uang">{{ $tpendapatan }}</span></h2>
+                                class="set-doller">Rp.</sup>{{ number_format($tpendapatan,2,',','.') }}</h2>
                         <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Total Semua Pendapatan
                         </h6>
                     </div>
@@ -137,7 +137,6 @@
                                         </form>
                                         <a href="{{ url('invoice/'.$item->kode.'.'.$item->id) }}" target="d_blank" class="btn btn-info mr-2" data-toggle="tooltip" data-placement="bottom" title="Lihat Invoice"><i class="text-white fas fa-eye"></i></a>
                                         @if ($item->status==0)
-                                        <a href="https://api.whatsapp.com/send?phone=6283857317946&text=Terima%20kasih%20telah%20melakukan%20transaksi.%0AUntuk%20proses%20selanjutnya%20silahkan%20melakukan%20pembayaran%20dengan%20pilih%20opsi%20dibawah%20ini%3A%0A%0A1.%20TF%20BCA%20%20%20%20%20%20%3A%207656756756%20a.n%20spydercode%0A2.%20TF%20GoPay%20%20%3A%207878676767%20a.n%20spydercode%0A3.%20Pembayaran%20langsung%20pada%20alamat%20di%20bawah%0A%0ASalam%20kami!%0Ajl.%20kh%20usman%20mojokerto%2061328%0A%0A{{ url('/invoice/'.$item->kode.'.'.$item->id) }}" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Kirim pesan" class="btn btn-success mr-2"><i class="text-white fas fa-envelope"></i></a>
                                         <form action="{{ route('invoice.update',['invoice'=>$item->id]) }}" method="post">
                                             @method('PUT')
                                             @csrf

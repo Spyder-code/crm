@@ -46,9 +46,13 @@ Route::group(['prefix' => 'admin','middleware' => ['admin']], function () {
     Route::resource('produk', 'Admin\ProductController');
     Route::resource('member', 'Admin\MemberController');
     Route::resource('invoice', 'Admin\InvoiceController');
+    Route::resource('withdraw', 'Admin\WithdrawController');
     Route::post('passwordReset', 'Admin\MemberController@resetPassword')->name('admin.resetPassword');
+    Route::post('pendapatanReset/{member}', 'Admin\MemberController@resetPendapatan')->name('admin.resetPendapatan');
     Route::post('updatePerusahaan/{perusahaan}', 'HomeController@updatePerusahaan')->name('admin.updatePerusahaan');
     Route::post('updateProfil', 'HomeController@updateProfil')->name('admin.updateProfil');
+    Route::post('download', 'HomeController@download')->name('admin.download');
+    Route::post('scanUser', 'Admin\WithdrawController@scanUser');
 });
 
 Route::group(['prefix'=>'member','middleware' => ['member']], function () {

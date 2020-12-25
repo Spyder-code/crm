@@ -186,6 +186,11 @@
                                 class="hide-menu">List Transaksi
                             </span></a>
                     </li>
+                    <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('withdraw.index') }}"
+                            aria-expanded="false"><i data-feather="dollar-sign" class="feather-icon"></i><span
+                                class="hide-menu">Penarikan
+                            </span></a>
+                    </li>
                     <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{{ route('invoice.create') }}"
                             aria-expanded="false"><i data-feather="crosshair" class="feather-icon"></i><span
                                 class="hide-menu">Target Penjualan

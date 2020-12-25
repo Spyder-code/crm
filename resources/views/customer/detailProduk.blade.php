@@ -23,7 +23,7 @@
                         <p>{{ $price->produk->deskripsi }}</p>
                         <hr>
                         <div class="d-flex">
-                            <h2 class="text-dark mr-2">Harga </h2><span class="text-danger">Rp. <strike class="uang">{{ intval($price->harga)+20000 }}</strike></span>
+                            <h2 class="text-dark mr-2">Harga </h2>
                         </div>
                         <hr>
                         <p class="text-success">Rp. <span class="uang">{{ $price->harga }}</span></p>

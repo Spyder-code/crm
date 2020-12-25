@@ -20,7 +20,7 @@ class ProductController extends Controller
     {
         $data = Product::all()->sortByDesc('created_at');
         $terjual = Invoice::all()->sum('jumlah');
-        $stok = Product::all()->sum('stock') - $terjual;
+        $stok = Product::all()->sum('stock');
         return view('admin.produk.index',compact('data','terjual','stok'));
     }
 
@@ -69,25 +69,30 @@ class ProductController extends Controller
             'status' => 0,
             'link' => $link
         ]);
-
+        $uang = array();
+        $harga = array($request->harga1,$request->harga2,$request->harga3,$request->harga4);
+        for ($i=0; $i <4; $i++) { 
+            $uangstr = str_replace('.','',$harga[$i]);
+            array_push($uang,(int)$uangstr);
+        }
         Price::create([
             'id_produk' => $produk->id,
-            'harga' => $request->harga1,
+            'harga' => $uang[0],
             'area' => '0-50km',
         ]);
         Price::create([
             'id_produk' => $produk->id,
-            'harga' => $request->harga2,
+            'harga' => $uang[1],
             'area' => '51-100km',
         ]);
         Price::create([
             'id_produk' => $produk->id,
-            'harga' => $request->harga3,
+            'harga' => $uang[2],
             'area' => '101-200km',
         ]);
         Price::create([
             'id_produk' => $produk->id,
-            'harga' => $request->harga4,
+            'harga' => $uang[3],
             'area' => '>200km',
         ]);
 
@@ -176,17 +181,23 @@ class ProductController extends Controller
             'status' => 0
         ]);
 
+        $uang = array();
+        $harga = array($request->harga1,$request->harga2,$request->harga3,$request->harga4);
+        for ($i=0; $i <4; $i++) { 
+            $uangstr = str_replace('.','',$harga[$i]);
+            array_push($uang,(int)$uangstr);
+        }
         Price::find($request->idHarga1)->update([
-            'harga' => $request->harga1,
+            'harga' => $uang[0],
         ]);
         Price::find($request->idHarga2)->update([
-            'harga' => $request->harga2,
+            'harga' => $uang[1],
         ]);
         Price::find($request->idHarga3)->update([
-            'harga' => $request->harga3,
+            'harga' => $uang[2],
         ]);
         Price::find($request->idHarga4)->update([
-            'harga' => $request->harga4,
+            'harga' => $uang[3],
         ]);
 
         for ($i=1; $i<=4; $i++) {

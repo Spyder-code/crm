@@ -47,6 +47,9 @@
                                 <label>Phone</label>
                                 <input type="number" name="phone" value="{{ Auth::user()->phone }}" class="form-control" readonly>
                             </div>
+                            <div class="form-group text-center">
+                                <img src="{{ asset('card/'.Auth::id().'.jpg') }}" class="img-fluid">
+                            </div>
                             {{-- <button type="submit" class="btn btn-info d-block w-100">Update Perusahaan</button> --}}
                         </form>
                     </div>

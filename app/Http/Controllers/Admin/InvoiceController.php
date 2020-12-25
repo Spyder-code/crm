@@ -102,6 +102,11 @@ class InvoiceController extends Controller
 
         $member = User::find($invoice->id_member);
         $referal = Referal::where('referal_id',$invoice->id_member)->first();
+        $ref = User::find($referal->member_id);
+
+        $member->update([
+            'pendapatan' =>$member->pendapatan+( $invoice->total *($member->komisi/100))
+        ]);
 
         $data = Target::all();
         foreach ($data as $item) {
@@ -118,10 +123,11 @@ class InvoiceController extends Controller
             $total = MemberTarget::all()->where('id_member',$invoice->id_member)->where('id_target',$item->id)->count();
             if($item->jumlah==$total){
                 User::find($invoice->id_member)->update([
-                    'komisi' => $member->komisi + 10
+                    'komisi' => $member->komisi + 10,
+                    'status' =>1
                 ]);
                 User::find($referal->member_id)->update([
-                    'komisi' => $member->komisi + 10
+                    'komisi' => $ref->komisi + 10
                 ]);
             }
             array_push($memberTarget,$total);

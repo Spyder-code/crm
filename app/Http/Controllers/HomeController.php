@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
+use File;
 
 class HomeController extends Controller
 {
@@ -50,6 +52,24 @@ class HomeController extends Controller
         $tpembeli = Customer::all()->count();
         $tproduk = Product::all()->count();
         $data = Invoice::all()->where('status',0);
+        $today = date('Y-m-d');
+        $member = User::all()->where('role','member');
+        foreach ($member as $item ) {
+            if ($item->komisi!=10) {
+                $aawal = $item->updated_at;
+                $awal = date_format($item->updated_at,'Y-m-d');
+                $aakhir = date_modify($item->updated_at,'+1 month');
+                $akhir = date_format($aakhir,'Y-m-d');
+                if ($today==$akhir) {
+                    $data = Invoice::all()->where('id_member',$item->id)->whereBetween('updated_at',[$awal,$akhir]);
+                    if ($data->count()==0) {
+                        User::find($item->id)->update([
+                            'komisi' => $item->komisi - 10
+                        ]);
+                    }
+                }
+            }
+        }
         return view('admin.dashboard',compact('tmember','tpendapatan','tpembeli','tproduk','data'));
     }
 
@@ -246,5 +266,26 @@ class HomeController extends Controller
     public function transaksiDetail(Invoice $invoice)
     {
         return view('admin.invoice.show',compact('invoice'));
+    }
+
+    public function download()
+    {
+        $zip = new ZipArchive;
+   
+        $fileName = 'card.zip';
+   
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
+        {
+            $files = File::files(public_path('card'));
+   
+            foreach ($files as $key => $value) {
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
+            }
+             
+            $zip->close();
+        }
+    
+        return response()->download(public_path($fileName));
     }
 }

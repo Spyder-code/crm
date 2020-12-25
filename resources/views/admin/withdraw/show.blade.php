@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="card">
-                    <div class="card-header bg-info text-white">Biodata</div>
+                    <div class="card-header bg-info text-white">Data Member</div>
                     <div class="card-body">
                         <ul class="list-group text-left">
                             <li class="list-group-item">
@@ -154,111 +154,25 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col col-4">
-                                        <label for="address">Pendapatan</label>
-                                    </div>
-                                    <div class="col col-2">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        Rp. {{ $member->Pendapatan }}
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="card">
-                    <div class="card-header bg-warning text-white">Image</div>
+                    <div class="card-header bg-warning text-white">Pendapatan</div>
                     <div class="card-body text-center">
                         <div class="text-center">
-                            <img src="{{ asset('admin/img/default.jpg') }}" class="img-thumbnail" alt="{{ $member->panggilan }}" style="height: 200px">
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-5">
-                    <div class="card-header bg-success text-white">Target</div>
-                    <div class="card-body text-center">
-                        <ul class="list-group">
-                            @foreach ($target as $item)
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col col-4">
-                                        <label for="address">{{ $item->produk->nama }}</label>
-                                    </div>
-                                    <div class="col col-2">
-                                        <label for="">:</label>
-                                    </div>
-                                    <div class="col">
-                                        @if ($memberTarget[$loop->index]==$item->jumlah)
-                                            <div class="badge badge-success">Complete</div>
-                                        @else
-                                        {{ $memberTarget[$loop->index] }}/{{ $item->jumlah }}
-                                        @endif
-                                    </div>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">Transaksi Member</div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="zero_config" class="table table-striped table-bordered no-wrap">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Pembeli</th>
-                                        <th>Produk</th>
-                                        <th>Total harga</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($transaksi as $item)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $item->pembeli->nama }}</td>
-                                        <td>{{ $item->produk->nama }}</td>
-                                        <td>{{ $item->total }}</td>
-                                        <td>
-                                            @if ($item->status==0)
-                                                <span class="badge badge-danger">Belum bayar</span>
-                                            @elseif($item->status==1)
-                                            <span class="badge badge-success">Lunas</span>
-                                            @endif
-                                        </td>
-                                        <td class="d-flex">
-                                            <a href="{{ Auth::user()->role=='admin'?route('invoice.show',['invoice'=>$item->id]):route('member.invoice.detail',['invoice'=>$item->id]) }}" class="btn btn-warning mr-2" data-toggle="tooltip" data-placement="bottom" title="Detail Transaksi"><i class="text-white fas fa-search"></i></a>
-                                            <form action="{{ route('invoice.destroy',['invoice'=>$item->id]) }}" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-danger mr-2" data-toggle="tooltip" data-placement="bottom" title="Delete Transaksi" onclick="return confirm('Are you sure?')"><i class="text-white fas fa-trash-alt"></i></button>
-                                            </form>
-                                            <a href="" class="btn btn-info mr-2" data-toggle="tooltip" data-placement="bottom" title="Lihat Invoice"><i class="text-white fas fa-eye"></i></a>
-                                            @if ($item->status==0)
-                                            <form action="{{ route('invoice.update',['invoice'=>$item->id]) }}" method="post">
-                                                @method('PUT')
-                                                @csrf
-                                                <button type="submit" class="btn btn-secondary mr-2" data-toggle="tooltip" data-placement="bottom" title="Ganti status transaksi" onclick="return confirm('Are you sure?')"><i class="text-white fas fa-pencil-alt"></i></button>
-                                            </form>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            <div class="alert alert-success">
+                                Rp. {{ number_format($member->pendapatan,2,',','.') }}
+                            </div>
+                            @if ($member->pendapatan!=0)
+                            <form action="{{ route('admin.resetPendapatan',['member'=>$member->id]) }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="pendapatan" value="{{ $member->pendapatan }}">
+                                <button type="submit" class="btn btn-success ml-2" onclick="return confirm('Are you sure?')" data-toggle="tooltip" data-placement="bottom" title="Reset pendapatan"><i class="text-white fas fa-dollar-sign"></i> Ambil uang</button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -267,13 +181,3 @@
     </div>
 @endsection
 
-@section('script')
-    <!-- CSS Here -->
-<link href="{{ asset('admin/assets/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
-<!-- Javascript Here -->
-<script src="{{ asset('admin/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('admin/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
-<script>
-    $('#zero_config').DataTable();
-</script>
-@endsection

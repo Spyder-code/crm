@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Image as ImageCard;
+use Image as imageCon;
 class UserController extends Controller
 {
     public function index($kode)
@@ -60,6 +60,18 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
         ]);
 
+        $str = substr($request->phone,0,1);
+        if($str=='0'){
+            $phone = substr_replace($request->phone,'62',0,1);
+        }else{
+            $str = substr($request->phone,0,2);
+            if ($str!='62') {
+                return back()->with('danger','Harap masukan No.telp anda dengan benar!');
+            } else {
+                $phone = $request->phone;
+            }
+        }
+
         $provinsi = $request->provinsi;
         $kota = $request->kota;
         $kecamatan = $request->kecamatan;
@@ -76,16 +88,16 @@ class UserController extends Controller
             $data->sapaan = $request->sapaan;
             $data->panggilan = $request->panggilan;
             $data->alamat = $alamat;
-            $data->phone = $request->phone;
+            $data->phone = $phone;
             $data->jenis_kelamin = $request->jenis_kelamin;
             $data->tanggal_lahir = $request->tanggal_lahir;
             $data->email = $request->email;
             $data->status = 0;
-            $data->komisi = 0;
+            $data->komisi = 10;
             $data->pendapatan = 0;
             $data->role = 'member';
             $data->password = Hash::make('member123');
-            $data->image = 'default.jpg';
+            $data->image = asset('storage/images/user/default.jpg');
             $data->kode = $panggilan.$tgl.$data->getNextId();
             $data->save();
 
@@ -96,23 +108,24 @@ class UserController extends Controller
                 'status' => 0,
             ]);
 
-            // $url = url('/card/'.$data->id);
-            // $params = http_build_query(array(
-            //     "access_key" => "4703929de7f24e71ae525d1dda7955d6",
-            //     "url" => $url,
-            // ));
+            $url = url('/card/'.$data->id);
+            $params = http_build_query(array(
+                "access_key" => "4703929de7f24e71ae525d1dda7955d6",
+                "url" => $url,
+            ));
 
-            // $image_data = file_get_contents("https://api.apiflash.com/v1/urltoimage?" . $params);
-            // file_put_contents(public_path('card/'.$data->id.'.jpg'), $image_data);
+            $image_data = file_get_contents("https://api.apiflash.com/v1/urltoimage?" . $params);
+            file_put_contents(public_path('card.jpg'), $image_data);
+            $img = imageCon::make(public_path('card.jpg'))->resize(1050,600)->save(public_path('card/'.$data->id.'.jpg'));
 
             $my_apikey = "OB705427TS8X23S05W05";
             $destination = $data->phone;
             $message =
 "Hai ".$data->sapaan." ".$data->panggilan.".
 
-Selamat Anda telah terdaftar menjadi member GarasiArt
+Selamat Anda telah terdaftar menjadi member *GarasiArt*
 
-Berikut benefit menjadi member kami :
+*Berikut benefit menjadi member kami :*
     - Komis 10% setiap penjualan produk GarasiArt
     - 10% komisi tambahan jika 'aktif' (memenuhi target penjualan) setiap satu produk GarasiArt
     - Bisa mereferensikan pada teman untuk ikut menjadi member, dan dapatkan 10% komisi tambahan atas 'aktif' nya referal Anda
@@ -131,7 +144,7 @@ Menemukan masalah dan memberikan solusi dengan berdiskusi
 
 Manfaatkan semua benefit dari kami semaksimal mungkin ya ".$data->sapaan." ".$data->panggilan.".
 
-Selamat bergabung
+*Selamat bergabung*
 
 Terimakasih
 

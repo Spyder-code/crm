@@ -52,12 +52,12 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $member->pengikut->name }}</td>
                                         <td>
-                                            @if ($member->status==0)
+                                            @if ($member->pengikut->status==0)
                                                 <div class="alert alert-danger">
                                                     <strong>Tidak Aktif</strong>
                                                 </div>
-                                            @elseif($member->status==1)
-                                                <div class="alert alert-danger">
+                                            @elseif($member->pengikut->status==1)
+                                                <div class="alert alert-success">
                                                     <strong>Aktif</strong>
                                                 </div>
                                             @endif

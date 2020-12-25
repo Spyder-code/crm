@@ -58,16 +58,24 @@
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <div class="card-header bg-info text-white">List Semua Member</div>
+                    <div class="card-header bg-info text-white">List Semua Member 
+                        <div class="float-right">
+                            <form action="{{ route('admin.download') }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure?')">Download Kartu Member</button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>ID</th>
                                         <th>Nama</th>
-                                        <th>Alamat</th>
                                         <th>Komisi</th>
+                                        <th>Pendapatan</th>
                                         <th>Tanggal Daftar</th>
                                         <th>Action</th>
                                     </tr>
@@ -76,9 +84,10 @@
                                     @foreach ($data as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->kode }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->alamat }}</td>
                                         <td>{{ $item->komisi }}%</td>
+                                        <td>Rp.{{ $item->pendapatan }}</td>
                                         <td>{{ date('d F Y',strtotime($item->created_at)) }}</td>
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ route('member.show',['member'=>$item->id]) }}" class="btn btn-warning mr-2" data-toggle="tooltip" data-placement="bottom" title="Detail member"><i class="text-white fas fa-search"></i></a>
@@ -92,6 +101,10 @@
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{ $item->id }}">
                                                 <button type="submit" class="btn btn-secondary ml-2" onclick="return confirm('Are you sure?')" data-toggle="tooltip" data-placement="bottom" title="Reset password member"><i class="text-white fas fa-recycle"></i></button>
+                                            </form>
+                                            <form action="{{ route('admin.resetPendapatan',['member'=>$item->id]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success ml-2" onclick="return confirm('Are you sure?')" data-toggle="tooltip" data-placement="bottom" title="Reset pendapatan"><i class="text-white fas fa-dollar-sign"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -109,13 +122,14 @@
                     <div class="card-header bg-success text-white">List Member aktif</div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                            <table id="two_config" class="table table-striped table-bordered no-wrap">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>ID</th>
                                         <th>Nama</th>
-                                        <th>Alamat</th>
                                         <th>Komisi</th>
+                                        <th>Pendapatan</th>
                                         <th>Tanggal Daftar</th>
                                         <th>Action</th>
                                     </tr>
@@ -124,9 +138,10 @@
                                     @foreach ($aktif as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->kode }}</td>
                                         <td>{{ $item->name }}</td>
-                                        <td>{{ $item->alamat }}</td>
                                         <td>{{ $item->komisi }}%</td>
+                                        <td>Rp. {{ $item->pendapatan }}</td>
                                         <td>{{ date('d F Y',strtotime($item->created_at)) }}</td>
                                         <td class="d-flex justify-content-center">
                                             <a href="{{ route('member.show',['member'=>$item->id]) }}" class="btn btn-warning mr-2" data-toggle="tooltip" data-placement="bottom" title="Detail member"><i class="text-white fas fa-search"></i></a>
@@ -166,5 +181,6 @@
 </script>
 <script>
     $('#zero_config').DataTable();
+    $('#two_config').DataTable();
 </script>
 @endsection
