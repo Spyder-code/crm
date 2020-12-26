@@ -6,11 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
-    <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.jpg') }}">
+        <!-- Primary Meta Tags -->
+        <title>@yield('title')</title>
+        <meta name="title" content="Rekomendasi karya seni yang cocok untuk menghias dinding ruangan Anda">
+        <meta name="description" content="@yield('deskripsi')">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:title" content="Rekomendasi karya seni yang cocok untuk menghias dinding ruangan Anda">
+        <meta property="og:description" content="@yield('deskripsi')">
+        <meta property="og:image" content="@yield('image')">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ url('/') }}">
+        <meta property="twitter:title" content="Rekomendasi karya seni yang cocok untuk menghias dinding ruangan Anda">
+        <meta property="twitter:description" content="@yield('deskripsi')">
+        <meta property="twitter:image" content="@yield('image')">
+        <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
 </head>
 
 <body>

@@ -1,4 +1,7 @@
 @extends('layouts.user')
+@section('image',{{ $price->produk->image }})
+@section('title',{{ $price->produk->nama }})
+@section('deskripsi',{{ $price->produk->deskripsi }})
 @section('content')
     <div class="container">
         <div class="card shadow-lg">

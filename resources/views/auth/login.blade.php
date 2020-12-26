@@ -6,19 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
-    <!-- Custom CSS -->
-    <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.jpg') }}">
+        <!-- Primary Meta Tags -->
+        <title>Rekomendasi karya seni yang cocok untuk menghias dinding ruangan Anda</title>
+        <meta name="title" content="Rekomendasi karya seni yang cocok untuk menghias dinding ruangan Anda">
+        <meta name="description" content="Mau dapat hadiah produk Garasiart setiap ulang tahun? Mau juga dapat bagi hasil 100% tanpa potongan biaya apapun? Segera daftar, dan login untuk nikmati benefitnya">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ url('/') }}">
+        <meta property="og:title" content="Rekomendasi karya seni yang cocok untuk menghias dinding ruangan Anda">
+        <meta property="og:description" content="Mau dapat hadiah produk Garasiart setiap ulang tahun? Mau juga dapat bagi hasil 100% tanpa potongan biaya apapun? Segera daftar, dan login untuk nikmati benefitnya">
+        <meta property="og:image" content="{{ asset('images/logo.jpg') }}">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="{{ url('/') }}">
+        <meta property="twitter:title" content="Rekomendasi karya seni yang cocok untuk menghias dinding ruangan Anda">
+        <meta property="twitter:description" content="Mau dapat hadiah produk Garasiart setiap ulang tahun? Mau juga dapat bagi hasil 100% tanpa potongan biaya apapun? Segera daftar, dan login untuk nikmati benefitnya">
+        <meta property="twitter:image" content="{{ asset('images/logo.jpg') }}">
+        <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -50,7 +57,7 @@
                             <img src="{{ asset('admin/assets/images/big/icon.png') }}" alt="wrapkit">
                         </div>
                         <h2 class="mt-3 text-center">Sign In</h2>
-                        <p class="text-center">Enter your email address and password to access admin panel.</p>
+                        <p class="text-center">Enter your email address and password to access member panel.</p>
                         <form method="POST" class="mt-4" action="{{ route('login') }}">
                             @csrf
                             <div class="row">

@@ -1,4 +1,7 @@
 @extends('layouts.user')
+@section('image',{{ asset('images/logo.jpg') }})
+@section('title','Ganti password')
+@section('deskripsi','ganti password member')
 @section('content')
     <div class="container">
         <div class="row">

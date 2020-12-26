@@ -1,4 +1,9 @@
 @extends('layouts.user')
+@section('deskripsi')
+Mau dapat hadiah produk Garasiart setiap ulang tahun? Mau juga dapat bagi hasil 100% tanpa potongan biaya apapun? Segera daftar, dan login untuk nikmati benefitnya
+@endsection
+@section('image',{{ asset('images/logo.jpg') }})
+@section('title','Daftar member | Garasiart')
 @section('content')
     @if ($message = Session::get('danger'))
     <div class="row">
